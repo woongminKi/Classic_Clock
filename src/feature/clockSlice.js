@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const now = new Date();
-
 const clockSlice = createSlice({
   name: "clock",
   initialState: {
