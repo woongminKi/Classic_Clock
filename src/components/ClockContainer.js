@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Circle from "./Circle";
+import Clock from "./Clock";
 import { getHours, getMinutes, getSeconds } from '../feature/clockSlice';
 
 export default function ClockContainer() {
+  const [now, setNow] = useState(new Date());
   const dispatch = useDispatch();
 
-  const now = new Date();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const hours = now.getHours();
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
@@ -17,7 +25,7 @@ export default function ClockContainer() {
 
   return (
     <div>
-      <Circle />
+      <Clock />
     </div>
   )
 }
