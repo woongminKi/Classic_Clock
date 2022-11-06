@@ -6,9 +6,6 @@ export default function Circle() {
   const storeHours = useSelector((state) => state.clock.hours);
   const storeMinutes = useSelector((state) => state.clock.minutes);
   const storeSeconds = useSelector((state) => state.clock.seconds);
-  console.log("스토어시간::", storeHours)
-  console.log("스토어분::", storeMinutes)
-  console.log("스토어초::", storeSeconds)
 
   const hoursMoveLogic = (hours) => {
     return ((hours / 24) * 360);
