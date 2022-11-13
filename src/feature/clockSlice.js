@@ -3,24 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const clockSlice = createSlice({
   name: "clock",
   initialState: {
-    clock: {
-      hours: "",
-      minutes: "",
-      seconds: "",
-    }
+    now: new Date(),
   },
   reducers:{
-    getHours: (state, action) => {
-      state.hours = action.payload;
-    },
-    getMinutes: (state, action) => {
-      state.minutes = action.payload;
-    },
-    getSeconds: (state, action) => {
-      state.seconds = action.payload;
+    setNow: (state, action) => {
+      state.now = action.payload;
     },
   },
 });
 
-export const { getHours, getMinutes, getSeconds } = clockSlice.actions;
+export const { setNow } = clockSlice.actions;
 export default clockSlice.reducer;

@@ -2,13 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
+const useClock = () => {
+  const currentTime = useSelector((state) => state.clock.now);
+  return {
+    hours: currentTime.getHours(),
+    minutes: currentTime.getMinutes(),
+    seconds: currentTime.getSeconds(),
+  }
+}
+
 export default function Circle() {
-  const storeHours = useSelector((state) => state.clock.hours);
-  const storeMinutes = useSelector((state) => state.clock.minutes);
-  const storeSeconds = useSelector((state) => state.clock.seconds);
+  const {hours, minutes, seconds} = useClock();
 
   const hoursMoveLogic = (hours) => {
-    return ((hours / 24) * 360);
+    return ((hours / 12) * 360) + 90;
   };
   const minutesMoveLogic = (minutes) => {
     return ((minutes / 60) * 360) + 90;
@@ -18,21 +25,21 @@ export default function Circle() {
   };
 
   const hourStyle = {
-    transform: `rotate(${hoursMoveLogic(storeHours)}deg)`
+    transform: `rotate(${hoursMoveLogic(hours)}deg)`
   };
   const minuteStyle = {
-    transform: `rotate(${minutesMoveLogic(storeMinutes)}deg)`
+    transform: `rotate(${minutesMoveLogic(minutes)}deg)`
   };
   const secondStyle = {
-    transform: `rotate(${secondsMoveLogic(storeSeconds)}deg)`
+    transform: `rotate(${secondsMoveLogic(seconds)}deg)`
   };
 
   return (
     <DivClock>
       <DivClockFace>
-        <div className='hand hour-hand' style={hourStyle}></div>
-        <div className='hand min-hand' style={minuteStyle}></div>
-        <div className='hand second-hand' style={secondStyle}></div>
+        <div className='hand' style={hourStyle} />
+        <div className='hand' style={minuteStyle} />
+        <div className='hand' style={secondStyle} />
       </DivClockFace>
     </DivClock>
   )
@@ -69,5 +76,11 @@ const DivClockFace = styled.div`
     -o-transition: all 0.05s;
     transition: all 0.05s;
     transition-timing-function: ease-in-out;
+
+  }
+
+
+  .hour-hand {
+    background: red;
   }
 `;
